@@ -37,7 +37,7 @@ def sim_run(options, KalmanFilter):
     est_data_t = []
     v_est_data = []
     x_est_data = []
-    t = np.linspace(0,100,1001)
+    t = np.linspace(0.0,100,1001)
     dt = 0.1
     for t0 in t:
         state += [physics(t0,dt,state)]
@@ -45,10 +45,13 @@ def sim_run(options, KalmanFilter):
             est_data_t += [t0]
             # Measure car location.
             state_with_noise = state[-1]+(np.random.rand(1)[0]-0.5)*0.3
-            x_est_data += [kalman_filter.measure(state_with_noise,t0) \
-                            - state[-1]]
+            if t0 == 0.0:
+                x_est_data += [0]
+                v_est_data += [0]
+                continue
+            x_est_data += [kalman_filter.predict(t0) - state[-1]]
+            kalman_filter.measure_and_update(state_with_noise,t0)
             v_est_data += [kalman_filter.v]
-
 
 
     ###################
@@ -134,7 +137,7 @@ def sim_run(options, KalmanFilter):
 
     print("Compute Time: ", round(time.clock() - start, 3), "seconds.")
     # Animation.
-    car_ani = animation.FuncAnimation(fig, update_plot, frames=range(0,len(t)), interval=100, repeat=False, blit=False)
+    car_ani = animation.FuncAnimation(fig, update_plot, frames=range(1,len(t)), interval=100, repeat=False, blit=False)
     #car_ani.save('lines.mp4')
 
     plt.show()
