@@ -9,8 +9,12 @@ options['FIG_SIZE'] = [8,8]
 class KalmanFilterToy:
     def __init__(self):
         self.v = 0
-    def run(self,x):
-        return x
+        self.prev_x = 0
+        self.prev_time = 0
+    def measure(self,x,t):
+        prediction = 0
+        # Return prediction.
+        return prediction
 
 
 sim_run(options,KalmanFilterToy)
