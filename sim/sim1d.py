@@ -21,14 +21,14 @@ def sim_run(options, KalmanFilter):
             x0 = state[-1]
 
         if not CONSTANT_SPEED:
-            if t0 > 20:
-                x1 = 0.5*dt + x0
+            if t0 > 60:
+                x1 = 3*dt + x0
                 return x1
             if t0 > 40:
                 x1 = 2*dt + x0
                 return x1
-            if t0 > 60:
-                x1 = 3*dt + x0
+            if t0 > 20:
+                x1 = 0.5*dt + x0
                 return x1
         x1 = 3*dt + x0
         return x1
