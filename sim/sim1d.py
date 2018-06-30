@@ -32,6 +32,13 @@ def sim_run(options, KalmanFilter):
                 return x1
         x1 = 3*dt + x0
         return x1
+    if CONSTANT_SPEED:
+        v_real_data_y = [3,3]
+        v_real_data_x = [0, 100]
+
+    else:
+        v_real_data_y = [3, 3, 0.5, 0.5, 2, 2, 3, 3]
+        v_real_data_x = [0, 19.99, 20, 39.99, 40, 59.99, 60, 100]
 
     state = []
     est_data_t = []
@@ -81,7 +88,7 @@ def sim_run(options, KalmanFilter):
     # V Estimate plot.
     ax2 = fig.add_subplot(gs[0:4, 4:])
     v_est, = ax2.plot([], [], '-b')
-    v_est_status = ax2.text(0.0, -0.5, '', fontsize=20, color='g')
+    v_real, = ax2.plot(v_real_data_x, v_real_data_y, 'k--')
     plt.title('V Estimate')
     plt.xticks([])
     ax2.set_ylim([0,4])
@@ -90,7 +97,6 @@ def sim_run(options, KalmanFilter):
     # X Estimate plot.
     ax3 = fig.add_subplot(gs[5:9, 4:])
     x_est, = ax3.plot([], [], '-b')
-    x_est_status = ax3.text(0.0,-5, '', fontsize=20, color='g')
     plt.title('X Estimate Error')
     plt.xticks([])
     ax3.set_ylim(-4,4)
@@ -114,23 +120,11 @@ def sim_run(options, KalmanFilter):
         else:
             ax2.set_xlim([est_data_t[t_loc-20],est_data_t[t_loc+1]])
             ax3.set_xlim([est_data_t[t_loc-20],est_data_t[t_loc+1]])
-            v_est_status.set_position([est_data_t[t_loc-20],-0.5])
-            x_est_status.set_position([est_data_t[t_loc-20],-5])
         v_est.set_data(est_data_t[:t_loc], v_est_data[:t_loc])
         x_est.set_data(est_data_t[:t_loc], x_est_data[:t_loc])
 
         # Timer.
         time_text.set_text(str(100-t[num]))
-
-        # Status
-        #if abs( - v_est_data[t_loc]) < :
-        #    v_est_status.set_text('PASS')
-        if abs(x_est_data[t_loc]) < 0.15:
-            x_est_status.set_text('PASS')
-        else:
-            x_est_status.set_text('')
-
-
 
         return car_l, car_r, car_t, car_b, time_text
 
