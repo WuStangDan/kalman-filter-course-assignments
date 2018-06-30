@@ -68,7 +68,7 @@ def sim_run(options, KalmanFilter):
     ax.set_ylim([0, 31])
     plt.xticks([])
     #plt.yticks(np.arange(0,31,3))
-    plt.title('Kalman 1d Toy')
+    plt.title('Kalman 1D')
 
     # Time display.
     time_text = ax.text(6, 0.5, '', fontsize=15)
@@ -102,7 +102,7 @@ def sim_run(options, KalmanFilter):
             ax.set_ylim([0+state[num]-18, 31+state[num]-18])
             time_text.set_position([6,state[num]-18+0.5])
 
-        # Elevator.
+        # Car.
         car_l.set_data([2, 2],[state[num], state[num]+10])
         car_r.set_data([6, 6],[state[num], state[num]+10])
         car_t.set_data([2, 6],[state[num]+10, state[num]+10])
