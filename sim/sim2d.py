@@ -10,7 +10,9 @@ def sim_run(options, KalmanFilter):
     start = time.clock()
     # Simulator Options
     FIG_SIZE = options['FIG_SIZE'] # [Width, Height]
+    MEASURE_ANGLE = options['MEASURE_ANGLE']
     DRIVE_IN_CIRCLE = options['DRIVE_IN_CIRCLE']
+    RECIEVE_INPUTS = options['RECIEVE_INPUTS']
 
     kalman_filter = KalmanFilter()
 
@@ -80,8 +82,8 @@ def sim_run(options, KalmanFilter):
             state_with_noise = []
             state_with_noise += [state[-1][0]+(np.random.rand(1)[0]-0.5)*0.5]
             state_with_noise += [state[-1][1]+(np.random.rand(1)[0]-0.5)*0.5]
-            if DRIVE_IN_CIRCLE:
-                state_with_noise += [state[-1][3]+(np.random.rand(1)[0]-0.5)*0.0]
+            if MEASURE_ANGLE:
+                state_with_noise += [state[-1][3]+(np.random.rand(1)[0]-0.5)*0.5]
             noise_data += [state_with_noise]
 
             if t0 == 0.0:
@@ -89,7 +91,8 @@ def sim_run(options, KalmanFilter):
                 continue
             kalman_filter.predict(dt)
             x_est_data += [kalman_filter.measure_and_update(state_with_noise,dt)]
-
+            if RECIEVE_INPUTS:
+                kalman_filter.recieve_inputs(state[-1][4], state[-1][2])
 
     ###################
     # SIMULATOR DISPLAY
