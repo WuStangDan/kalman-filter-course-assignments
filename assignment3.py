@@ -4,10 +4,11 @@ from sim.sim2d import sim_run
 # Simulator options.
 options = {}
 options['FIG_SIZE'] = [8,8]
+
+options['DRIVE_IN_CIRCLE'] = False
 # If False, measurements will be x,y.
 # If True, measurements will be x,y, and current angle of the car.
 # Required if you want to pass the driving in circle.
-options['DRIVE_IN_CIRCLE'] = True
 options['MEASURE_ANGLE'] = False
 options['RECIEVE_INPUTS'] = False
 
