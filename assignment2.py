@@ -36,8 +36,9 @@ class KalmanFilter:
         dt =
         # Put dt into the state transition matrix.
         self.F[0,1] = dt
-        
+
         self.P =  *  * np.transpose(self.F)
+        return self.x[0,0]
     def measure_and_update(self,measurements,t):
         dt =
         self.F[0,1] = dt
