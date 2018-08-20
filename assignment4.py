@@ -32,9 +32,9 @@ class KalmanFilter:
                             [0., 1., 0., 0.],
                             [0., 0., 1., 0.],
                             [0., 0., 0., 1.]])
-    def predict(self,t):
+    def predict(self, dt):
         return
-    def measure_and_update(self,measurements,t):
+    def measure_and_update(self,measurements, dt):
         return [self.x[0], self.x[1]]
 
     def predict_red_light(self,light_location):
